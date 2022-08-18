@@ -29,9 +29,7 @@ const ProductDetails = () => {
                         <div className='description-container'>
                             <h2>Descrição do produto</h2>
                             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                                Temporibus voluptate dignissimos nulla ad eligendi, iure 
-                                voluptatum ipsum sint dolore illo quo repellat, corporis 
-                                cumque dolores vitae? Maxime voluptate fuga ut.</p>
+                                Temporibus voluptate dignissimos nulla ad eligendi.</p>
                         </div>
                     </div>
                 </div>

@@ -36,7 +36,6 @@ const Catalog = () => {
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
           <ProductCard product={product} />
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi quas eos beatae minima culpa perspiciatis dolores, vel earum temporibus possimus repellendus dicta. Officia dolores omnis at! Eligendi maxime placeat dolorum!
         </div>
       </div>
     </div>

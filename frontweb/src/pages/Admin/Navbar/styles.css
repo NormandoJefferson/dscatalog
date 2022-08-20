@@ -1,8 +1,6 @@
 .admin-nav-container {
     padding: 10px;
     background-color: #fff;
-    
-  
 }
 
 ul {
@@ -33,4 +31,34 @@ ul {
 .admin-nav-item.active {
     background: rgba(64, 123, 255, 0.3);
     color: #407bff;
+}
+
+@media (min-width: 768px) {
+    .admin-nav-item {
+        min-width: 220px;
+    }
+}
+
+@media (min-width: 1200px) {
+
+    ul {
+        justify-content: unset;
+        flex-direction: column;
+    }
+
+    .admin-nav-container {
+        padding: 0;
+        width: 300px;
+        height: calc(100vh - 70px);
+    }
+
+    .admin-nav-item {
+        border-radius: 0;
+        font-size: 18px;
+        height: 80px;
+        background-color: #fff;
+        border-bottom: 1px solid #e1e1e1;
+        justify-content: flex-start;
+        padding: 0 0 0 40px;
+    }
 }

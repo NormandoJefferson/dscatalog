@@ -33,6 +33,9 @@ public class ProductDTO implements Serializable{
 	@PastOrPresent(message = "A data do produto não pode ser futura")
 	private Instant date;
 	
+	// Além dos dados básicos o DTO vai aceitar uma lista
+	// de categorias (um produto pode ter várias categorias).
+	// Não coloca lista em construtores.
 	private List<CategoryDTO> categories = new ArrayList<>();
 
 	public ProductDTO() {
@@ -58,8 +61,13 @@ public class ProductDTO implements Serializable{
 		this.date = entity.getDate();
 	}
 	
+	// Esse construtor recebe a entidade e a lista de categorias.
 	public ProductDTO(Product entity, Set<Category> categories) {
-		this(entity); 
+		this(entity); // Recebe tudo da entidade.
+		
+		// Para cada categoria na lista de categorias vamos criar
+		// um objeto dto dessa categoria e adicionar no nosso atributo
+		// de lista de categorias.
 		categories.forEach(cat -> this.categories.add(new CategoryDTO(cat)));
 	}
 

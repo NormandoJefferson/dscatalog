@@ -11,9 +11,11 @@ import com.devsuperior.dscatalog.entities.User;
 
 public class UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-	 
+	
+	// OBS: Não coloca o password no DTO por segurança. 
 	private Long id;
 	
+	// Informar que não pode ser vazio.
 	@NotEmpty(message = "Campo obrigatório")
 	private String firstName;
 	private String lastName;
@@ -34,12 +36,17 @@ public class UserDTO implements Serializable{
 		this.email = email;
 	}
 	
+	// O DTO recebe nossa entidade User e pega alguns dados dela
+	// para transitar pelo dto.
 	public UserDTO(User entity) {
-		
 		this.id = entity.getId();
 		this.firstName = entity.getFirstName();
 		this.lastName = entity.getLastName();
 		this.email = entity.getEmail();
+		
+		// Pega a lista de roles que já veio junto com o usuário
+		// e para cada role vamos intanciar um novo RoleDTO e inserir
+		// no nosso atributo que é uma lista de rolesDTO.
 		entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
 	}
 

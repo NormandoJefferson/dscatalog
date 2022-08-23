@@ -1,12 +1,14 @@
 import { ReactComponent as ArrowIcon } from '../../assets/images/arrow.svg';
 import ProductPrice from 'components/ProductPrice/index';
 import { Link, useParams } from 'react-router-dom';
-import {Product} from '../../types/product';
+import { Product } from '../../types/product';
 
 import './styles.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BASE_URL } from 'util/requests';
+import ProductDetailsLoader from './ProductDetailsLoader';
+import ProductInfoLoader from './ProductInfoLoader';
 
 type UrlParam = {
     productId: string;
@@ -14,18 +16,24 @@ type UrlParam = {
 
 const ProductDetails = () => {
 
-    const {productId} = useParams<UrlParam>();
+    const { productId } = useParams<UrlParam>();
 
     const [product, setProduct] = useState<Product>();
 
+    const [isLoading, setIsLoading] = useState(false);
+
     useEffect(() => {
+
+        setIsLoading(true)
         axios.get(`${BASE_URL}/products/${productId}`)
-        .then(response => {
-            setProduct(response.data)
-            console.log(response.data);
-            
-        });
-    },[productId]);
+            .then(response => {
+                setProduct(response.data)
+                console.log(response.data);
+
+            }).finally(() => {
+                setIsLoading(false)
+            });
+    }, [productId]);
 
     return (
         <div className='product-details-container'>
@@ -38,24 +46,29 @@ const ProductDetails = () => {
                 </Link>
                 <div className="row">
                     <div className="col-xl-6">
-                        <div className='img-container'>
-                            <img src={product?.imgUrl} 
-                            alt={product?.name} />
-                        </div>
+                        {isLoading ? <ProductDetailsLoader /> :
+                            <>
+                                <div className='img-container'>
+                                    <img src={product?.imgUrl}
+                                        alt={product?.name} />
+                                </div>
 
-                        <div className='name-price-container'>
-                            <h1>{product?.name}</h1>
-                            {product && <ProductPrice price={product?.price} />}
-                        </div>
+                                <div className='name-price-container'>
+                                    <h1>{product?.name}</h1>
+                                    {product && <ProductPrice price={product?.price} />}
+                                </div>
+                            </>
+                        }
                     </div>
 
                     <div className="col-xl-6">
+                        { isLoading ? <ProductInfoLoader/> :
                         <div className='description-container'>
                             <h2>Descrição do produto</h2>
                             <p>
-                            {product?.description}
+                                {product?.description}
                             </p>
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </div>
